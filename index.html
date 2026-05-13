@@ -3,27 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HAPPY BIRTHDAY LIZZIE &lt;3</title>
+  <title>HAPPY BIRTHDAY&lt;333</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩷</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      font-family: Georgia, serif;
+      font-family: 'Inter', sans-serif;
       background: #fdf6ec;
       color: #3a2e2a;
+      min-height: 100vh;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 4rem 1.5rem 2rem;
       text-align: center;
     }
-    h1 { font-size: clamp(2rem, 6vw, 4rem); margin: 0; }
-    p  { font-size: 1.2rem; opacity: 0.7; margin-top: 0.5rem; }
+
+    .hero-text {
+      max-width: 800px;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #6b4a3e;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 .heart {
+      color: #d96a8a;
+    }
+
+    .hero .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      opacity: 0.75;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .horse-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      aspect-ratio: 16 / 10;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(107, 74, 62, 0.15);
+      background: #f5ead8;
+    }
+
+    .horse-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .sketchfab-credit {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      text-align: center;
+    }
+
+    .sketchfab-credit a {
+      color: inherit;
+    }
   </style>
 </head>
+
 <body>
-  <main>
-    <h1>Something is coming…</h1>
-    <p>🌷</p>
-  </main>
+  <section class="hero">
+    <div class="hero-text">
+      <h1>HAPPY BIRTHDAY<span class="heart">&lt;333</span></h1>
+      <p class="subtitle">For the most beautiful girl in the world, on her 18th. 🩷</p>
+    </div>
+
+    <div class="horse-wrapper">
+      <iframe
+        title="Horse Run"
+        frameborder="0"
+        allowfullscreen
+        mozallowfullscreen="true"
+        webkitallowfullscreen="true"
+        allow="autoplay; fullscreen; xr-spatial-tracking"
+        src="https://sketchfab.com/models/b7421fcc3b9b4065b2b330a3bc7e9a79/embed?autostart=1&autospin=0.2&ui_infos=0&ui_inspector=0&ui_stop=0&ui_watermark_link=0&ui_watermark=0&ui_hint=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0&transparent=1">
+      </iframe>
+    </div>
+
+    <p class="sketchfab-credit">
+      "Horse Run" by
+      <a href="https://sketchfab.com/creatureanimator" target="_blank" rel="nofollow">Amitesh Nandan</a>
+      on <a href="https://sketchfab.com" target="_blank" rel="nofollow">Sketchfab</a> (CC BY-ND 4.0)
+    </p>
+  </section>
 </body>
 </html>
