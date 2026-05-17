@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
   <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 
@@ -20,131 +20,211 @@
       background: #fdf6ec;
       color: #3a2e2a;
       min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .floaty {
+      position: absolute;
+      z-index: 0;
+      color: #d96a8a;
+      opacity: 0.35;
+      pointer-events: none;
+      animation: bob 6s ease-in-out infinite;
+    }
+    .floaty svg { display: block; width: 100%; height: 100%; }
+
+    .f1 { top: 8%;  left: 6%;  width: 42px; animation-delay: 0s;   }
+    .f2 { top: 18%; right: 8%; width: 34px; animation-delay: 1.2s; }
+    .f3 { top: 40%; left: 4%;  width: 38px; animation-delay: 2.4s; }
+    .f4 { top: 55%; right: 6%; width: 46px; animation-delay: 0.6s; }
+    .f5 { top: 72%; left: 9%;  width: 30px; animation-delay: 3s;   }
+    .f6 { top: 85%; right: 14%;width: 40px; animation-delay: 1.8s; }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50%      { transform: translateY(-16px) rotate(4deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .floaty, .next-arrow { animation: none; }
+    }
+
+    @media (max-width: 640px) {
+      .f3, .f5 { display: none; }
+      .floaty { opacity: 0.25; }
     }
 
     .hero {
-      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 4rem 1.5rem 2rem;
+      padding: 2vh 1.5rem 2vh;
       text-align: center;
+      overflow: hidden;
     }
 
-    .hero-text {
-      max-width: 800px;
-      margin-bottom: 1rem;
-    }
+    .hero-text { max-width: 1000px; }
 
     .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 7vw, 5rem);
-      font-weight: 600;
-      line-height: 1.1;
+      font-family: 'Archivo', sans-serif;
+      font-size: clamp(2.4rem, 7.5vw, 5.5rem);
+      font-weight: 700;
+      line-height: 0.98;
       letter-spacing: -0.02em;
       color: #6b4a3e;
-      margin-bottom: 1rem;
+      margin: 0;
     }
 
     .hero .subtitle {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Archivo', sans-serif;
       font-style: italic;
-      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-      opacity: 0.75;
+      font-weight: 500;
+      font-size: clamp(1rem, 2.2vw, 1.45rem);
+      opacity: 0.65;
+      letter-spacing: 0.01em;
       max-width: 600px;
-      margin: 0 auto;
+      margin: 0.5rem auto 0;
     }
 
     .horse-wrapper {
       width: 100%;
-      max-width: 1100px;
-      aspect-ratio: 16 / 10;
+      max-width: 900px;
+      flex: 1;
+      min-height: 0;
+      margin-top: -1vh;
+      overflow: hidden;
+    }
+
+    .horse-wrapper model-viewer {
+      width: 100%;
+      height: 128%;
+      margin-top: -8%;
+      transform: scale(1.3);
+      transform-origin: center 40%;
     }
 
     model-viewer {
-      width: 100%;
-      height: 100%;
       --poster-color: transparent;
       background-color: transparent;
     }
 
     .loading-bar {
-      display: block;
-      width: 60%;
-      max-width: 240px;
-      height: 4px;
-      border-radius: 99px;
-      background: rgba(107, 74, 62, 0.15);
-      overflow: hidden;
+      display: block; width: 60%; max-width: 240px;
+      height: 4px; border-radius: 99px;
+      background: rgba(107, 74, 62, 0.15); overflow: hidden;
     }
-
     .loading-bar .fill {
-      display: block;
-      height: 100%;
-      width: 0%;
-      background: #d96a8a;
-      transition: width 0.3s ease;
+      display: block; height: 100%; width: 0%;
+      background: #d96a8a; transition: width 0.3s ease;
     }
-
     .progress-wrap {
-      position: absolute;
-      top: 50%;
-      left: 50%;
+      position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0.75rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; color: #6b4a3e; opacity: 0.8;
+    }
+    .progress-wrap[hidden] { display: none; }
+
+    /* ---- "this way" arrow ---- */
+    .next-arrow {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: #6b4a3e;
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      color: #6b4a3e;
-      opacity: 0.8;
+      font-size: 1.15rem;
+      padding: 1rem;
+      border-radius: 99px;
+      transition: transform 0.25s ease, color 0.25s ease;
+      animation: nudge 2s ease-in-out infinite;
+    }
+    .next-arrow:hover {
+      color: #d96a8a;
+      transform: translateY(-50%) scale(1.08);
+    }
+    .next-arrow svg { width: 32px; height: 32px; }
+
+    @keyframes nudge {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      50%      { transform: translateY(-50%) translateX(8px); }
     }
 
-    .progress-wrap[hidden] { display: none; }
+    @media (max-width: 640px) {
+      .next-arrow { right: 1rem; font-size: 1rem; }
+      .next-arrow svg { width: 26px; height: 26px; }
+    }
   </style>
 </head>
 
 <body>
+
+  <div class="floaty f1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  <div class="floaty f2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg></div>
+  <div class="floaty f3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  <div class="floaty f4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg></div>
+  <div class="floaty f5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  <div class="floaty f6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+
   <section class="hero">
     <div class="hero-text">
       <h1>HAPPY BIRTHDAY BABY</h1>
-      <p class="subtitle">a website made for you by your cool boyfriend 🩷</p>
     </div>
 
     <div class="horse-wrapper">
-      <model-viewer
+     <model-viewer
         src="models/horse.glb"
         alt="A galloping horse"
         autoplay
         camera-controls
         disable-zoom
+        disable-pan
         interaction-prompt="none"
         shadow-intensity="0"
         exposure="1.1"
-        camera-orbit="-30deg 80deg 4m"
+        camera-orbit="-30deg 75deg 3.3m"
+        camera-target="0m 1.1m 0m"
         loading="eager">
-
         <div class="progress-wrap" slot="progress-bar">
           <span class="loading-bar"><span class="fill"></span></span>
           <span>loading something special…</span>
         </div>
       </model-viewer>
     </div>
+
+    <p class="subtitle">a website made for you by your AWESOME boyfriend</p>
   </section>
+
+  <a href="home.html" class="next-arrow" aria-label="Go to the home page">
+    <span>this way</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"/>
+      <polyline points="12 5 19 12 12 19"/>
+    </svg>
+  </a>
 
   <script>
     const mv = document.querySelector('model-viewer');
     const wrap = document.querySelector('.progress-wrap');
     const fill = document.querySelector('.loading-bar .fill');
-
     mv.addEventListener('progress', (e) => {
       const pct = e.detail.totalProgress * 100;
       fill.style.width = pct + '%';
-      if (e.detail.totalProgress === 1) {
-        wrap.setAttribute('hidden', '');
-      }
+      if (e.detail.totalProgress === 1) wrap.setAttribute('hidden', '');
     });
   </script>
 </body>
