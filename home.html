@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HAPPY BIRTHDAY&lt;333</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩷</text></svg>" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,51 +15,278 @@
     body {
       font-family: 'Inter', sans-serif;
       background: #fdf6ec;
-      color: #3a2e2a;
+      color: #1a1a1a;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
       padding: 3rem 1.5rem;
+      position: relative;
+      overflow-x: hidden;
     }
 
-    h1 {
+    /* floating hearts */
+    .heart {
+      position: fixed;
+      z-index: 0;
+      color: #d96a8a;
+      opacity: 0.3;
+      pointer-events: none;
+      animation: bob 6s ease-in-out infinite;
+    }
+    .heart svg { display: block; width: 100%; height: 100%; }
+    .h1 { width: 38px; top: 8%;  left: 5%;   animation-delay: 0s;   }
+    .h2 { width: 30px; top: 20%; right: 6%;  animation-delay: 1.2s; }
+    .h3 { width: 44px; top: 55%; left: 4%;   animation-delay: 2.4s; }
+    .h4 { width: 34px; top: 70%; right: 5%;  animation-delay: 0.8s; }
+    .h5 { width: 28px; top: 88%; left: 12%;  animation-delay: 1.8s; }
+    .h6 { width: 36px; top: 40%; right: 8%;  animation-delay: 3s;   }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50%       { transform: translateY(-14px) rotate(4deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .heart { animation: none; }
+    }
+
+    /* back link */
+    .back {
+      position: fixed;
+      top: 1.5rem;
+      left: 2rem;
       font-family: 'Archivo', sans-serif;
-      font-size: clamp(2.5rem, 7vw, 5rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #6b4a3e;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 1.25rem;
-      opacity: 0.7;
-      max-width: 500px;
-      margin-bottom: 2.5rem;
-    }
-
-    .back-link {
+      font-size: 1rem;
+      color: #1a1a1a;
+      opacity: 0.5;
       text-decoration: none;
-      color: #6b4a3e;
+      transition: opacity 0.2s;
+      z-index: 10;
+    }
+    .back:hover { opacity: 1; color: #d96a8a; }
+
+    /* main content */
+    .content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .page-title {
+      font-family: 'Archivo', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .page-subtitle {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 1.05rem;
-      opacity: 0.7;
-      transition: color 0.2s ease;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: #1a1a1a;
+      opacity: 0.65;
+      margin-top: -1rem;
     }
-    .back-link:hover { color: #d96a8a; }
+
+    /* envelope */
+    .envelope-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .envelope {
+      width: 140px;
+      height: 100px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .envelope:hover { transform: scale(1.05); }
+
+    .env-body {
+      width: 100%;
+      height: 100%;
+      background: #f5e6d0;
+      border-radius: 4px;
+      border: 2px solid #d9c4a8;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .env-flap {
+      position: absolute;
+      top: 0; left: 0;
+      width: 0; height: 0;
+      border-left: 70px solid transparent;
+      border-right: 70px solid transparent;
+      border-top: 50px solid #e8d5bc;
+      transform-origin: top center;
+      transition: transform 0.5s ease;
+      z-index: 2;
+    }
+
+    .envelope.opened .env-flap {
+      transform: rotateX(180deg);
+    }
+
+    .env-bottom-left {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 0;
+      border-bottom: 50px solid #eddec8;
+      border-right: 70px solid transparent;
+    }
+    .env-bottom-right {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 0; height: 0;
+      border-bottom: 50px solid #e8d5bc;
+      border-left: 70px solid transparent;
+    }
+
+    .env-heart {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #d96a8a;
+      font-size: 1.8rem;
+      z-index: 3;
+      transition: opacity 0.3s;
+    }
+    .envelope.opened .env-heart { opacity: 0; }
+
+    .open-btn {
+      font-family: 'Archivo', sans-serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #1a1a1a;
+      background: none;
+      border: 1.5px solid #1a1a1a;
+      padding: 0.75rem 2rem;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      opacity: 0.8;
+    }
+    .open-btn:hover {
+      background: #1a1a1a;
+      color: #fdf6ec;
+      opacity: 1;
+    }
+    .open-btn.hidden { display: none; }
+
+    /* letter */
+    .letter-wrap {
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 1.2s ease;
+    }
+    .letter-wrap.open {
+      max-height: 2000px;
+    }
+
+    .letter {
+      background: #fffdf8;
+      border: 1px solid #e8d5bc;
+      border-radius: 12px;
+      padding: 2.5rem 2.5rem;
+      text-align: left;
+      box-shadow: 0 4px 24px rgba(107, 74, 62, 0.08);
+    }
+
+    .letter p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      line-height: 1.85;
+      color: #2a1f1a;
+      margin-bottom: 1.4rem;
+    }
+
+    .letter p:last-child { margin-bottom: 0; }
+
+    .letter .sign-off {
+      font-style: italic;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .letter { padding: 1.75rem 1.5rem; }
+      .h3, .h5 { display: none; }
+    }
   </style>
 </head>
-
 <body>
-  <h1>Welcome in 🩷</h1>
-  <p>This is where everything lives. We'll fill this page with the good stuff next.</p>
 
-  <a href="index.html" class="back-link">← back to the start</a>
+  <a href="index.html" class="back">← back</a>
+
+  <div class="heart h1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  <div class="heart h2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  <div class="heart h3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  <div class="heart h4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  <div class="heart h5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  <div class="heart h6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+
+  <div class="content">
+    <h1 class="page-title">for lizzie.</h1>
+    <p class="page-subtitle">on her 18th birthday</p>
+
+    <div class="envelope-wrap">
+      <div class="envelope" id="envelope">
+        <div class="env-body">
+          <div class="env-flap"></div>
+          <div class="env-bottom-left"></div>
+          <div class="env-bottom-right"></div>
+          <div class="env-heart">🩷</div>
+        </div>
+      </div>
+
+      <button class="open-btn" id="openBtn">open your letter</button>
+    </div>
+
+    <div class="letter-wrap" id="letterWrap">
+      <div class="letter">
+        <p>Dear Lizzie,</p>
+        <p>You're eighteen now!</p>
+        <p>With your last exam in sight, and your time at school ending, soon you'll have a different life in a different city with different responsibilities to handle. However hard or unpredictable the last year was, it's now another chapter that goes in your book.</p>
+        <p>Although you might not want it too, time must go on and you will change like everyone does. Some believe people don't change, I find that hard to believe, it's against our nature to stay the same; humans always adapt. Maybe in the following months and years you'll look back at the old you and wonder who she was; If so, I can tell you all about the woman I've learned to love so deeply and find so much about.</p>
+        <p>First, she's a sucker for nostalgia: a song from a few years back or a forgotten photo from a trip, she adores it. Speaking of adoring, she hates most jokes I make. She's also a very harsh critic of a certain someone's cooking skills, but to be fair she's a very talented baker, even if she rarely indulges in her creations. She's the most skilled Roblox player in the Nevin household. She thinks and thinks and thinks and then some, perhaps some too much. She agonizes more than she deserves too, I know I've made her agonize over one too many things. Its easy to forget that she started a long distance relationship with her boyfriend having only known each other for 6 months and being together for less than 4, it shows she has faith in love, and she wont give it up easily. She cares about her friends and she would do anything for her family. She is a woman who reminds me to be kind and makes me want to be kinder. And God she's just so gorgeous.</p>
+        <p>She's the Irish girl who owns my heart.</p>
+        <p>Lizzie, please know that the person you are now is someone of great worth.</p>
+        <p>I know you will be more, but you are enough already. I'll be right here next to you no matter what.</p>
+        <p>You turn spring into summer my love</p>
+        <p class="sign-off">Pietro</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const envelope = document.getElementById('envelope');
+    const openBtn = document.getElementById('openBtn');
+    const letterWrap = document.getElementById('letterWrap');
+
+    openBtn.addEventListener('click', () => {
+      envelope.classList.add('opened');
+      openBtn.classList.add('hidden');
+      setTimeout(() => {
+        letterWrap.classList.add('open');
+        letterWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 600);
+    });
+  </script>
 </body>
 </html>
